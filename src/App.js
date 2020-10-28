@@ -36,7 +36,7 @@ function App() {
   return (
     <div className="App vh-100">
       <main>
-        <nav class="navbar navbar-dark bg-light shadow-sm">
+        <nav class="navbar navbar-light shadow-sm">
           <div class="container-fluid">
             <a class="navbar-brand" href="/">
               <img
@@ -50,7 +50,7 @@ function App() {
           </div>
         </nav>
         <div className="row h-100">
-          <div className="editor-panel col-12 col-md-6 position-relative">
+          <div className="editor-panel col-12 col-md-6 position-relative overflow-hidden">
             <textarea
               id="editor"
               onChange={parseTextFcc}
