@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import './styles/App.scss';
 import LogoMD from './assets/octicon-markdown.svg';
 
@@ -16,6 +16,7 @@ function App() {
   const [htmlPreview, seHtmlPreview] = useState(initialHtmlState());
 
   useEffect(() => {}, []);
+  const previewPanel = useRef(null);
 
   function parseText(instance, change) {
     const editorInput = instance.getValue();
@@ -23,6 +24,15 @@ function App() {
 
     const html = marked(editorInput);
     seHtmlPreview(html);
+  }
+
+  function onScrollCM(instance) {
+    const editorPanelScrollInfo = instance.getScrollInfo();
+    previewPanel.current.scroll({
+      top: editorPanelScrollInfo.top,
+      left: editorPanelScrollInfo.left,
+      behavior: 'smooth',
+    });
   }
 
   function parseTextFcc(e) {
@@ -45,7 +55,9 @@ function App() {
                 height="31"
                 class="d-inline-block align-top pr-3"
               />
-              <h1 className="title d-inline-block h4">Markdown Previewer Online</h1>
+              <h1 className="title d-inline-block h4">
+                Markdown Previewer Online
+              </h1>
             </a>
           </div>
         </nav>
@@ -61,6 +73,7 @@ function App() {
               id="editor"
               className="w-100 h-100"
               value={markdown}
+              onScroll={onScrollCM}
               options={{
                 theme: 'monokai',
                 keyMap: 'sublime',
@@ -70,7 +83,10 @@ function App() {
             />
             <div className="separator d-none d-md-block h-100 position-absolute top-0 bg-white"></div>
           </div>
-          <div className="preview-panel col-12 col-md-6 py-2 h-100 overflow-auto text-break">
+          <div
+            ref={previewPanel}
+            className="preview-panel col-12 col-md-6 py-2 vh-100 overflow-auto text-break"
+          >
             <div
               id="preview"
               dangerouslySetInnerHTML={{ __html: htmlPreview }}
