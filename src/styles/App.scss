@@ -1,4 +1,10 @@
+@import './custom.scss';
 .App {
   overflow: hidden;
   position: relative;
+}
+
+#editor {
+  outline: none;
+  resize: none;
 }
