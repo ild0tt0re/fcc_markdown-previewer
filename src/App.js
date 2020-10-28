@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 import './styles/App.scss';
+import LogoMD from './assets/octicon-markdown.svg';
+
 import marked from 'marked';
+import CodeMirror from '@uiw/react-codemirror';
+import 'codemirror/keymap/sublime';
+import 'codemirror/theme/monokai.css';
 
 marked.setOptions({
   breaks: true,
@@ -9,34 +14,63 @@ marked.setOptions({
 function App() {
   const [markdown, setMarkdown] = useState(initialEditorState());
   const [htmlPreview, seHtmlPreview] = useState(initialHtmlState());
-  
+
   useEffect(() => {}, []);
 
-  function parseText(e) {
+  function parseText(instance, change) {
+    const editorInput = instance.getValue();
+    setMarkdown(editorInput);
+
+    const html = marked(editorInput);
+    seHtmlPreview(html);
+  }
+
+  function parseTextFcc(e) {
     const editorInput = e.target.value;
     setMarkdown(editorInput);
 
-    const html = marked(e.target.value);
+    const html = marked(editorInput);
     seHtmlPreview(html);
   }
 
   return (
     <div className="App vh-100">
-      <main className="container-fluid">
+      <main>
+        <nav class="navbar navbar-dark bg-light shadow-sm">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+              <img
+                src={LogoMD}
+                alt=""
+                height="31"
+                class="d-inline-block align-top pr-3"
+              />
+              <h1 className="title d-inline-block h4">Markdown Previewer Online</h1>
+            </a>
+          </div>
+        </nav>
         <div className="row h-100">
-          <div className="editor-panel col-12 col-md-6 py-2 vh-100 overflow-hidden">
+          <div className="editor-panel col-12 col-md-6 position-relative">
             <textarea
               id="editor"
-              className="w-100 h-100 pr-3 border-top-0 border-right border-bottom-0 border-left-0"
-              type="text"
-              name="editor"
-              autoFocus
-              onChange={parseText}
-              placeholder="# Add here your Markdown..."
+              onChange={parseTextFcc}
               value={markdown}
+              style={{ display: 'none' }}
             ></textarea>
+            <CodeMirror
+              id="editor"
+              className="w-100 h-100"
+              value={markdown}
+              options={{
+                theme: 'monokai',
+                keyMap: 'sublime',
+                mode: 'markdown',
+              }}
+              onChange={parseText}
+            />
+            <div className="separator d-none d-md-block h-100 position-absolute top-0 bg-white"></div>
           </div>
-          <div className="preview-panel col-12 col-md-6 py-2 vh-100 overflow-auto text-break">
+          <div className="preview-panel col-12 col-md-6 py-2 h-100 overflow-auto text-break">
             <div
               id="preview"
               dangerouslySetInnerHTML={{ __html: htmlPreview }}

@@ -4,7 +4,28 @@
   position: relative;
 }
 
-#editor {
-  outline: none;
-  resize: none;
+.editor-panel {
+  height: 50vh;
+}
+
+.CodeMirror {
+  border-radius: 0 !important;
+}
+
+.title {
+  background-color: #565656;
+  color: transparent;
+  text-shadow: 2px 2px 3px rgba(255, 255, 255, 0.5);
+  background-clip: text;
+}
+
+@include media-breakpoint-up(md) {
+  .editor-panel {
+    height: 100vh;
+  }
+  .separator {
+    width: 8px;
+    right: 4px;
+    box-shadow: 3px 0 6px #e7e7e7;
+  }
 }
