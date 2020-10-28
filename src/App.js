@@ -46,14 +46,14 @@ function App() {
   return (
     <div className="App vh-100">
       <main>
-        <nav class="navbar navbar-light shadow-sm">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="/">
+        <nav className="navbar navbar-light shadow-sm">
+          <div className="container-fluid">
+            <a className="navbar-brand" href="/">
               <img
                 src={LogoMD}
                 alt=""
                 height="31"
-                class="d-inline-block align-top pr-3"
+                className="d-inline-block align-top pr-3"
               />
               <h1 className="title d-inline-block h4">
                 Markdown Previewer Online
