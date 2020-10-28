@@ -46,7 +46,7 @@ function App() {
   return (
     <div className="App vh-100">
       <main>
-        <nav className="navbar navbar-light shadow-sm">
+        <nav className="navbar navbar-light shadow-sm m-0 p-1">
           <div className="container-fluid">
             <a className="navbar-brand" href="/">
               <img
@@ -85,7 +85,7 @@ function App() {
           </div>
           <div
             ref={previewPanel}
-            className="preview-panel col-12 col-md-6 py-2 vh-100 overflow-auto text-break"
+            className="preview-panel col-12 col-md-6 py-2 overflow-auto text-break"
           >
             <div
               id="preview"
